@@ -1,0 +1,33 @@
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #282a36;
+}
+
+#typebox{
+  margin: 0 5%;
+  height: 93px;
+  overflow: hidden;
+}
+
+.word{
+  color: #44475a;
+  font-size: 25px;
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.correct{
+  color: #50fa7b;
+}
+
+.incorrect{
+  color:#ff5555;
+}
