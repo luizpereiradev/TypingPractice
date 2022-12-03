@@ -31,3 +31,20 @@ body{
 .incorrect{
   color:#ff5555;
 }
+
+.finalLine{
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: #ff5555;
+  right: 5%;
+}
+
+.firstLine{
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: #ff5555;
+  right: 5%;
+  top: 49%;
+}

@@ -23,7 +23,7 @@ const renderWords = (words) => {
   }
 };
 
-renderWords(words); // render first page
+renderWords(words);
 
 const wordElements = document.querySelectorAll(".word");
 let letterElements = wordElements[wordTyped].children;
@@ -53,7 +53,6 @@ const typeLetter = (letter) => {
     checkTypeBackspace(letter, letterElements);
     if (letterTyped === letterElements.length) {
       if (letter === " ") {
-        wordElements[wordTyped].remove();
         wordTyped++;
         letterElements = wordElements[wordTyped].children;
         letterTyped = 0;
@@ -66,14 +65,13 @@ const typeLetter = (letter) => {
 };
 
 addEventListener("keydown", (event) => {
-  console.log(event);
-  if (letterTyped == 0 && wordTyped == 0){
-    startTimer(30, timerCountElement)
+  if (letterTyped == 0 && wordTyped == 0) {
+    startTimer(30, timerCountElement);
   }
   letter = event.key;
   typeLetter(letter);
+  testLine()
 });
-
 
 function startTimer(duration, display) {
   let timer = duration,
@@ -84,8 +82,23 @@ function startTimer(duration, display) {
     display.textContent = seconds;
     if (--timer < 0) {
       timer = duration;
-      display.textContent = correctTyped/5/(duration/60) + "WPM"
+      display.textContent = correctTyped / 5 / (duration / 60) + "WPM";
       clearInterval(interval);
     }
   }, 1000);
 }
+
+const testLine = () => {
+  document.querySelectorAll('.word').forEach((word) => {
+    if(word.offsetTop > document.querySelector('.finalLine').offsetTop) {
+      word.classList.add('line3')
+    }else if(word.offsetTop < document.querySelector('.firstLine').offsetTop) {
+      word.classList.add('line1')
+    }else{
+      word.classList.remove('line3')
+      word.classList.add('line2')
+      word.classList.remove('line1')
+    }
+  })
+}
+
