@@ -47,12 +47,25 @@ const checkTypeBackspace = (letter, letterElements) => {
   }
 };
 
+const removeLine1 = () => {
+  const line1Words = document.querySelectorAll('.line1')
+  line1Words.forEach((word) => {
+    word.remove()
+  })
+}
+
 const typeLetter = (letter) => {
   const testLength = letterTyped >= 0;
   if (testLength) {
     checkTypeBackspace(letter, letterElements);
     if (letterTyped === letterElements.length) {
       if (letter === " ") {
+        //verificar se a palavra é a ultima palavra da linha 2
+        const line2Words = document.querySelectorAll('.line2')
+        const lastLine2Word = line2Words[line2Words.length - 1]
+        if(lastLine2Word === wordElements[wordTyped]) {
+          removeLine1()
+        }
         wordTyped++;
         letterElements = wordElements[wordTyped].children;
         letterTyped = 0;
