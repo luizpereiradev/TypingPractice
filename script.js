@@ -1,4 +1,5 @@
 const typebox = document.getElementById("typebox");
+const typeboxContainer = document.querySelector(".typebox-container");
 let letterTyped = 0;
 let correctTyped = 0;
 let wordTyped = 0;
@@ -56,7 +57,6 @@ const removeLine1 = () => {
 };
 
 const typeLetter = (letter) => {
-  console.log(wordElements[wordTyped]);
   const testLength = letterTyped >= 0;
   if (testLength) {
     checkTypeBackspace(letter, letterElements);
@@ -80,6 +80,9 @@ const typeLetter = (letter) => {
 };
 
 addEventListener("keydown", (event) => {
+  const isblur = typebox.style.filter === "blur(5px)";
+  removeTypeboxBlur()
+  if (isblur) return;
   timerCountElement.style.visibility = "visible";
   keyEffect(event.key.toUpperCase());
   if (letterTyped == 0 && wordTyped == 0) {
@@ -142,7 +145,14 @@ const stopKeyEffect = (key) => {
   }
 };
 
+const removeLettersClass = () => {
+  document.querySelectorAll("span").forEach((letter) => {
+    letter.classList = "";
+  });
+};
+
 const resetTest = () => {
+  removeLettersClass();
   letterTyped = 0;
   correctTyped = 0;
   wordTyped = 0;
@@ -161,3 +171,22 @@ const reloadText = () => {
 const reloadBtn = document.querySelector(".fa-arrows-rotate");
 
 reloadBtn.addEventListener("click", reloadText);
+const focusElement = document.querySelector(".focus");
+
+const removeTypeboxBlur = () => {
+  typebox.style.filter = "blur(0px)";
+  focusElement.style.display = "none";
+  typebox.focus();
+};
+
+const addTypeboxBlur = () => {
+  typebox.style.filter = "blur(5px)";
+  focusElement.style.display = "grid";
+  resetTest();
+};
+
+const body = document.querySelector("body");
+
+body.addEventListener("click", (event) => {
+  event.target === body ? addTypeboxBlur() : removeTypeboxBlur();
+});
