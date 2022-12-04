@@ -55,6 +55,7 @@ body{
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-top: 20px;
 }
 
 .finalLine{
@@ -136,6 +137,33 @@ ul{
   padding: 0 6%;
   font-size: 15px;
   font-weight: 700;
-  color: #ffb86c;
+  color: #bd93f9;
   visibility: hidden;
+  margin: auto 0;
+}
+
+.timeContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.timeSelectors{
+  display: flex;
+  flex-direction: row;
+  margin: 0 5%;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #44475a;
+}
+
+.timeSelector:hover{
+  color: #bd93f9 ;
+}
+
+.selected {
+  color: #bd93f9;
 }

@@ -4,6 +4,7 @@ let letterTyped = 0;
 let correctTyped = 0;
 let wordTyped = 0;
 let interval;
+let time = 30;
 const timerCountElement = document.querySelector(".displayTimer");
 
 const renderWord = (word) => {
@@ -86,7 +87,7 @@ addEventListener("keydown", (event) => {
   timerCountElement.style.visibility = "visible";
   keyEffect(event.key.toUpperCase());
   if (letterTyped == 0 && wordTyped == 0) {
-    startTimer(30, timerCountElement);
+    startTimer(time, timerCountElement);
   }
   letter = event.key;
   typeLetter(letter);
@@ -159,7 +160,7 @@ const resetTest = () => {
   wordElements = document.querySelectorAll(".word");
   letterElements = wordElements[wordTyped].children;
   clearInterval(interval);
-  timerCountElement.textContent = 30;
+  timerCountElement.textContent = time;
   timerCountElement.style.visibility = "hidden";
 };
 
@@ -189,4 +190,19 @@ const body = document.querySelector("body");
 
 body.addEventListener("click", (event) => {
   event.target === body ? addTypeboxBlur() : removeTypeboxBlur();
+});
+
+const timeSelectors = document.querySelectorAll(".timeSelector");
+
+const toggleTimeSelector = (event) => {
+  timeSelectors.forEach((timeSelector) => {
+    timeSelector.classList.remove("selected");
+  });
+  event.target.classList.add("selected");
+  time = event.target.textContent;
+  resetTest();
+};
+
+timeSelectors.forEach((timeSelector) => {
+  timeSelector.addEventListener("click", toggleTimeSelector);
 });
