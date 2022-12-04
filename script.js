@@ -55,6 +55,7 @@ const removeLine1 = () => {
 }
 
 const typeLetter = (letter) => {
+  console.log(wordElements[wordTyped]);
   const testLength = letterTyped >= 0;
   if (testLength) {
     checkTypeBackspace(letter, letterElements);
@@ -78,6 +79,8 @@ const typeLetter = (letter) => {
 };
 
 addEventListener("keydown", (event) => {
+  console.log(event.key.toUpperCase());
+  keyEffect(event.key.toUpperCase())
   if (letterTyped == 0 && wordTyped == 0) {
     startTimer(30, timerCountElement);
   }
@@ -85,6 +88,10 @@ addEventListener("keydown", (event) => {
   typeLetter(letter);
   testLine()
 });
+
+addEventListener("keyup", (event) => {
+  stopKeyEffect(event.key.toUpperCase())
+})
 
 function startTimer(duration, display) {
   let timer = duration,
@@ -107,6 +114,7 @@ const testLine = () => {
       word.classList.add('line3')
     }else if(word.offsetTop < document.querySelector('.firstLine').offsetTop) {
       word.classList.add('line1')
+      word.classList.remove('line2')
     }else{
       word.classList.remove('line3')
       word.classList.add('line2')
@@ -115,3 +123,18 @@ const testLine = () => {
   })
 }
 
+const keyEffect = (key) => {
+  const keyElement = document.getElementById(key)
+  if(keyElement){
+    keyElement.style.backgroundColor = '#bd93f9'
+    keyElement.style.transform = "scale(1.1)"
+  }
+}
+
+const stopKeyEffect = (key) => {
+  const keyElement = document.getElementById(key)
+  if(keyElement){
+  keyElement.style.backgroundColor = '#44475a'
+  keyElement.style.transform = ""
+  }
+}
