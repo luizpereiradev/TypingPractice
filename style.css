@@ -61,7 +61,7 @@ body{
   display: flex;
   flex-direction: column;
   margin: 50px auto;
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 .row {
@@ -102,4 +102,22 @@ ul{
 
 #SHIFT{
   width: 100px;
+}
+
+.refreshBtn{
+  width: 24px;
+}
+
+.fa-arrows-rotate{
+  color: #44475a;
+  padding: 20px;
+}
+
+.displayTimer{
+  align-self: flex-start;
+  padding: 0 6%;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffb86c;
+  visibility: hidden;
 }

@@ -2,6 +2,7 @@ const typebox = document.getElementById("typebox");
 let letterTyped = 0;
 let correctTyped = 0;
 let wordTyped = 0;
+let interval;
 const timerCountElement = document.querySelector(".displayTimer");
 
 const renderWord = (word) => {
@@ -25,7 +26,7 @@ const renderWords = (words) => {
 
 renderWords(words);
 
-const wordElements = document.querySelectorAll(".word");
+let wordElements = document.querySelectorAll(".word");
 let letterElements = wordElements[wordTyped].children;
 
 const checkCorrectTyped = (letter, elementLetter, letterElements) => {
@@ -48,11 +49,11 @@ const checkTypeBackspace = (letter, letterElements) => {
 };
 
 const removeLine1 = () => {
-  const line1Words = document.querySelectorAll('.line1')
+  const line1Words = document.querySelectorAll(".line1");
   line1Words.forEach((word) => {
-    word.remove()
-  })
-}
+    word.remove();
+  });
+};
 
 const typeLetter = (letter) => {
   console.log(wordElements[wordTyped]);
@@ -62,10 +63,10 @@ const typeLetter = (letter) => {
     if (letterTyped === letterElements.length) {
       if (letter === " ") {
         //verificar se a palavra é a ultima palavra da linha 2
-        const line2Words = document.querySelectorAll('.line2')
-        const lastLine2Word = line2Words[line2Words.length - 1]
-        if(lastLine2Word === wordElements[wordTyped]) {
-          removeLine1()
+        const line2Words = document.querySelectorAll(".line2");
+        const lastLine2Word = line2Words[line2Words.length - 1];
+        if (lastLine2Word === wordElements[wordTyped]) {
+          removeLine1();
         }
         wordTyped++;
         letterElements = wordElements[wordTyped].children;
@@ -79,24 +80,24 @@ const typeLetter = (letter) => {
 };
 
 addEventListener("keydown", (event) => {
-  console.log(event.key.toUpperCase());
-  keyEffect(event.key.toUpperCase())
+  timerCountElement.style.visibility = "visible";
+  keyEffect(event.key.toUpperCase());
   if (letterTyped == 0 && wordTyped == 0) {
     startTimer(30, timerCountElement);
   }
   letter = event.key;
   typeLetter(letter);
-  testLine()
+  testLine();
 });
 
 addEventListener("keyup", (event) => {
-  stopKeyEffect(event.key.toUpperCase())
-})
+  stopKeyEffect(event.key.toUpperCase());
+});
 
 function startTimer(duration, display) {
   let timer = duration,
     seconds;
-  let interval = setInterval(function () {
+  interval = setInterval(function () {
     seconds = parseInt(timer % 60, 10);
     seconds = seconds < 10 ? "0" + seconds : seconds;
     display.textContent = seconds;
@@ -109,32 +110,54 @@ function startTimer(duration, display) {
 }
 
 const testLine = () => {
-  document.querySelectorAll('.word').forEach((word) => {
-    if(word.offsetTop > document.querySelector('.finalLine').offsetTop) {
-      word.classList.add('line3')
-    }else if(word.offsetTop < document.querySelector('.firstLine').offsetTop) {
-      word.classList.add('line1')
-      word.classList.remove('line2')
-    }else{
-      word.classList.remove('line3')
-      word.classList.add('line2')
-      word.classList.remove('line1')
+  document.querySelectorAll(".word").forEach((word) => {
+    if (word.offsetTop > document.querySelector(".finalLine").offsetTop) {
+      word.classList.add("line3");
+    } else if (
+      word.offsetTop < document.querySelector(".firstLine").offsetTop
+    ) {
+      word.classList.add("line1");
+      word.classList.remove("line2");
+    } else {
+      word.classList.remove("line3");
+      word.classList.add("line2");
+      word.classList.remove("line1");
     }
-  })
-}
+  });
+};
 
 const keyEffect = (key) => {
-  const keyElement = document.getElementById(key)
-  if(keyElement){
-    keyElement.style.backgroundColor = '#bd93f9'
-    keyElement.style.transform = "scale(1.1)"
+  const keyElement = document.getElementById(key);
+  if (keyElement) {
+    keyElement.style.backgroundColor = "#bd93f9";
+    keyElement.style.transform = "scale(1.1)";
   }
-}
+};
 
 const stopKeyEffect = (key) => {
-  const keyElement = document.getElementById(key)
-  if(keyElement){
-  keyElement.style.backgroundColor = '#44475a'
-  keyElement.style.transform = ""
+  const keyElement = document.getElementById(key);
+  if (keyElement) {
+    keyElement.style.backgroundColor = "#44475a";
+    keyElement.style.transform = "";
   }
-}
+};
+
+const resetTest = () => {
+  letterTyped = 0;
+  correctTyped = 0;
+  wordTyped = 0;
+  wordElements = document.querySelectorAll(".word");
+  letterElements = wordElements[wordTyped].children;
+  clearInterval(interval);
+  timerCountElement.textContent = 30;
+  timerCountElement.style.visibility = "hidden";
+};
+
+const reloadText = () => {
+  renderWords(words);
+  resetTest();
+};
+
+const reloadBtn = document.querySelector(".fa-arrows-rotate");
+
+reloadBtn.addEventListener("click", reloadText);
