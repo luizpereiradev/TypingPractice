@@ -10,6 +10,7 @@
       src="https://kit.fontawesome.com/f41796bb82.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="timeContainer">
@@ -102,7 +103,11 @@
         </div>
         <div class="modalResult-text">
           <p>WPM: <span id="wpm">50</span></p>
-          <p>Accuracy: <span id="accuracy">10%</span></p>
+          <p>Accuracy: <span id="accuracy">90%</span></p>
+        </div>
+        <div class="modalResult-chart">
+          <h3>History</h3>
+          <canvas id="myChart"></canvas>
         </div>
         <div class="modalResult__content__footer">
           <i class="fa-solid fa-arrows-rotate"></i>

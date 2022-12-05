@@ -198,11 +198,12 @@ ul{
   font-size: 20px;
 }
 
-.modalResult-text span{
+#wpm{
   color: #ff79c5d7;
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 20px;
+}
+
+#accuracy{
+  color: #50fa7b;
 }
 
 .modalResult__content__footer .fa-arrows-rotate{
@@ -214,4 +215,13 @@ ul{
   color: white;
   transition: 0.5s;
   border-radius: 10%;
+}
+
+.modalResult-chart{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  color: #ff79c6;
 }

@@ -1,4 +1,6 @@
 const typebox = document.getElementById("typebox");
+const wpmArray = JSON.parse(localStorage.getItem("wpmArray")) || [];
+const accuracyArray = JSON.parse(localStorage.getItem("accuracyArray")) || [];
 const typeboxContainer = document.querySelector(".typebox-container");
 const timeSelectors = document.querySelectorAll(".timeSelector");
 let page = "index";
@@ -115,6 +117,9 @@ function startTimer(duration, display) {
     if (--timer < 0) {
       timer = duration;
       modalOpen();
+      saveWpm();
+      saveAccuracy();
+      chart.update();
       resetTest();
       clearInterval(interval);
       timeSelectorsContainer.style.display = "flex";
@@ -237,3 +242,45 @@ const closeModal = () => {
   modalElement.style.display = "none";
   removeTypeboxBlur();
 };
+
+const saveWpm = () => {
+  const wpm = document.getElementById("wpm").textContent;
+  wpmArray.push(wpm);
+  localStorage.setItem("wpmArray", JSON.stringify(wpmArray));
+};
+
+const saveAccuracy = () => {
+  const accuracy = Number(document.getElementById("accuracy").textContent.replace('%', ''));
+  accuracyArray.push(accuracy);
+  localStorage.setItem("accuracyArray", JSON.stringify(accuracyArray));
+  chart.data.labels =  wpmArray.map((_, index) => index + 1);
+};
+
+const ctx = document.getElementById('myChart');
+
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: wpmArray.map((_, index) => index + 1),
+    datasets: [{
+      label: 'WPM',
+      data: wpmArray,
+      borderWidth: 3,
+      backgroundColor:  '#ff79c6',
+      pointRadius: 4,
+    }, {
+      label: 'Accuracy',
+      data: accuracyArray,
+      borderWidth: 2,
+      backgroundColor: '#50fa7bd7',
+      pointRadius: 4,
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
