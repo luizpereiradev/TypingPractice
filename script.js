@@ -3,6 +3,7 @@ const wpmArray = JSON.parse(localStorage.getItem("wpmArray")) || [];
 const accuracyArray = JSON.parse(localStorage.getItem("accuracyArray")) || [];
 const typeboxContainer = document.querySelector(".typebox-container");
 const timeSelectors = document.querySelectorAll(".timeSelector");
+let words = wordsPT
 let page = "index";
 let letterTyped = 0;
 let correctTyped = 0;
@@ -289,6 +290,17 @@ const chart = new Chart(ctx, {
 
 const playKeySound = (key) => {
   const keySound = new Audio(`./sounds/${key == ' ' ? 'SPACE': key}.mp3`);
-  keySound.volume = 0.2;
+  keySound.volume = 0.15;
   keySound.play();
 };
+
+const selectLanguage = (event) => {
+  if(!event.target.classList.contains('language')) return;
+  const language = event.target.textContent;
+  words = language === "English" ? wordsEN : wordsPT;
+  reloadText();
+}
+
+const languageSelectorContainer = document.querySelector(".select");
+
+languageSelectorContainer.addEventListener("click", selectLanguage);
