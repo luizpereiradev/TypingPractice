@@ -2,6 +2,38 @@
   --darkgray: #44475a;
 }
 
+header{
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+header img{
+  width: 30px;
+  height: 30px;
+  /* padding: 5px;
+  border-radius: 50%;
+  border: 2px solid var(--darkgray); */
+  margin: 10px;
+}
+
+header h1{
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  color: whitesmoke;
+}
 body{
   margin: 0;
   padding: 0;
@@ -257,3 +289,12 @@ select::-ms-expand {
     display: none;
   }
 }
+
+.fa-volume-high{
+  color: var(--darkgray);
+}
+
+.fa-volume-xmark{
+  color: #ff5555;
+}
+

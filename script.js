@@ -290,7 +290,7 @@ const chart = new Chart(ctx, {
 
 const playKeySound = (key) => {
   const keySound = new Audio(`./sounds/${key == ' ' ? 'SPACE': key}.mp3`);
-  keySound.volume = 0.15;
+  soundMuted ? keySound.volume = 0 : keySound.volume = 0.15;
   keySound.play();
 };
 
@@ -304,3 +304,14 @@ const selectLanguage = (event) => {
 const languageSelectorContainer = document.querySelector(".select");
 
 languageSelectorContainer.addEventListener("click", selectLanguage);
+
+
+const soundIcon = document.querySelector(".volume");
+let soundMuted = false
+
+const soundMutetoggle = () => {
+  soundIcon.classList.toggle("fa-volume-xmark");
+  soundMuted = !soundMuted;
+}
+soundIcon.addEventListener('click', soundMutetoggle);
+
