@@ -91,7 +91,9 @@ const typeLetter = (letter) => {
 
 addEventListener("keydown", (event) => {
   if (page !== "index") return;
+  const isblur = typebox.style.filter === "blur(5px)";
   removeTypeboxBlur();
+  if (isblur) return;
   timerCountElement.style.visibility = "visible";
   keyEffect(event.key.toUpperCase());
   if (letterTyped == 0 && wordTyped == 0) {
@@ -229,18 +231,17 @@ timeSelectors.forEach((timeSelector) => {
 const modalOpen = () => {
   page = "modal";
   const modalElement = document.querySelector(".modalResult");
+  modalElement.style.visibility = "visible";
   const wpmDisplay = document.getElementById("wpm");
   const accuracyDisplay = document.getElementById("accuracy");
-  modalElement.style.display = "flex";
   wpmDisplay.textContent = correctTyped / 5 / (time / 60);
-  accuracyDisplay.textContent =
-    (correctTyped / (correctTyped + incorrectTyped)).toFixed(2) * 100 + "%";
+  accuracyDisplay.textContent = (correctTyped / (correctTyped + incorrectTyped)).toFixed(2) * 100 + "%";
 };
 
 const closeModal = () => {
   page = "index";
   const modalElement = document.querySelector(".modalResult");
-  modalElement.style.display = "none";
+  modalElement.style.visibility = "hidden"
   removeTypeboxBlur();
 };
 
@@ -282,7 +283,7 @@ const chart = new Chart(ctx, {
       y: {
         beginAtZero: true
       }
-    }
+    },
   }
 });
 

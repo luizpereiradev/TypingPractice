@@ -193,7 +193,7 @@ ul{
 }
 
 .modalResult{
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -204,6 +204,7 @@ ul{
   background-color: #6273a4e3;
   z-index: 999;
   color: white;
+  visibility: hidden;
 }
 
 .modalResult-content{
