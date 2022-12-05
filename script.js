@@ -1,10 +1,14 @@
 const typebox = document.getElementById("typebox");
 const typeboxContainer = document.querySelector(".typebox-container");
+const timeSelectors = document.querySelectorAll(".timeSelector");
+let page = "index";
 let letterTyped = 0;
 let correctTyped = 0;
+let incorrectTyped = 0;
 let wordTyped = 0;
 let interval;
 let time = 30;
+const timeSelectorsContainer = document.querySelector(".timeSelectors");
 const timerCountElement = document.querySelector(".displayTimer");
 
 const renderWord = (word) => {
@@ -38,6 +42,7 @@ const checkCorrectTyped = (letter, elementLetter, letterElements) => {
     correctTyped++;
   } else if (letter !== "Backspace") {
     letterElements[letterTyped].classList.add("incorrect");
+    incorrectTyped++;
     letterTyped++;
   }
 };
@@ -81,12 +86,14 @@ const typeLetter = (letter) => {
 };
 
 addEventListener("keydown", (event) => {
+  if (page !== "index") return;
   const isblur = typebox.style.filter === "blur(5px)";
-  removeTypeboxBlur()
+  removeTypeboxBlur();
   if (isblur) return;
   timerCountElement.style.visibility = "visible";
   keyEffect(event.key.toUpperCase());
   if (letterTyped == 0 && wordTyped == 0) {
+    timeSelectorsContainer.style.display = "none";
     startTimer(time, timerCountElement);
   }
   letter = event.key;
@@ -107,8 +114,10 @@ function startTimer(duration, display) {
     display.textContent = seconds;
     if (--timer < 0) {
       timer = duration;
-      display.textContent = correctTyped / 5 / (duration / 60) + "WPM";
+      modalOpen();
+      resetTest();
       clearInterval(interval);
+      timeSelectorsContainer.style.display = "flex";
     }
   }, 1000);
 }
@@ -147,7 +156,7 @@ const stopKeyEffect = (key) => {
 };
 
 const removeLettersClass = () => {
-  document.querySelectorAll("span").forEach((letter) => {
+  document.querySelectorAll(".word span").forEach((letter) => {
     letter.classList = "";
   });
 };
@@ -156,10 +165,12 @@ const resetTest = () => {
   removeLettersClass();
   letterTyped = 0;
   correctTyped = 0;
+  incorrectTyped = 0;
   wordTyped = 0;
   wordElements = document.querySelectorAll(".word");
   letterElements = wordElements[wordTyped].children;
   clearInterval(interval);
+  timeSelectorsContainer.style.display = "flex";
   timerCountElement.textContent = time;
   timerCountElement.style.visibility = "hidden";
 };
@@ -167,11 +178,15 @@ const resetTest = () => {
 const reloadText = () => {
   renderWords(words);
   resetTest();
+  closeModal();
 };
 
-const reloadBtn = document.querySelector(".fa-arrows-rotate");
+const reloadBtns = document.querySelectorAll(".fa-arrows-rotate");
 
-reloadBtn.addEventListener("click", reloadText);
+reloadBtns.forEach((btn) => {
+  btn.addEventListener("click", reloadText);
+});
+
 const focusElement = document.querySelector(".focus");
 
 const removeTypeboxBlur = () => {
@@ -192,8 +207,6 @@ body.addEventListener("click", (event) => {
   event.target === body ? addTypeboxBlur() : removeTypeboxBlur();
 });
 
-const timeSelectors = document.querySelectorAll(".timeSelector");
-
 const toggleTimeSelector = (event) => {
   timeSelectors.forEach((timeSelector) => {
     timeSelector.classList.remove("selected");
@@ -206,3 +219,21 @@ const toggleTimeSelector = (event) => {
 timeSelectors.forEach((timeSelector) => {
   timeSelector.addEventListener("click", toggleTimeSelector);
 });
+
+const modalOpen = () => {
+  page = "modal";
+  const modalElement = document.querySelector(".modalResult");
+  const wpmDisplay = document.getElementById("wpm");
+  const accuracyDisplay = document.getElementById("accuracy");
+  modalElement.style.display = "flex";
+  wpmDisplay.textContent = correctTyped / 5 / (time / 60);
+  accuracyDisplay.textContent =
+    (correctTyped / (correctTyped + incorrectTyped)).toFixed(2) * 100 + "%";
+};
+
+const closeModal = () => {
+  page = "index";
+  const modalElement = document.querySelector(".modalResult");
+  modalElement.style.display = "none";
+  removeTypeboxBlur();
+};

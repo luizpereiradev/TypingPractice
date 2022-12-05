@@ -137,7 +137,7 @@ ul{
   padding: 0 6%;
   font-size: 15px;
   font-weight: 700;
-  color: #bd93f9;
+  color: white;
   visibility: hidden;
   margin: auto 0;
 }
@@ -165,5 +165,53 @@ ul{
 }
 
 .selected {
-  color: #bd93f9;
+  color: white;
+}
+
+.modalResult{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #6273a4e3;
+  z-index: 999;
+  color: white;
+}
+
+.modalResult-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color:#282a36;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px 0px #44475a;
+}
+
+.modalResult-header{
+  color: #ff79c6;
+  font-size: 20px;
+}
+
+.modalResult-text span{
+  color: #ff79c5d7;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.modalResult__content__footer .fa-arrows-rotate{
+  color: white;
+}
+
+.fa-arrows-rotate:hover{
+  transform: scale(1.2);
+  color: white;
+  transition: 0.5s;
+  border-radius: 10%;
 }
