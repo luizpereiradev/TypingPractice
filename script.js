@@ -12,6 +12,7 @@ let wordTyped = 0;
 let interval;
 let time = 30;
 const timeSelectorsContainer = document.querySelector(".timeSelectors");
+const timeOptions = document.querySelector(".timeOptions");
 const timerCountElement = document.querySelector(".displayTimer");
 
 const renderWord = (word) => {
@@ -90,17 +91,14 @@ const typeLetter = (letter) => {
 
 addEventListener("keydown", (event) => {
   if (page !== "index") return;
-  const isblur = typebox.style.filter === "blur(5px)";
   removeTypeboxBlur();
-  if (isblur) return;
   timerCountElement.style.visibility = "visible";
   keyEffect(event.key.toUpperCase());
   if (letterTyped == 0 && wordTyped == 0) {
-    timeSelectorsContainer.style.display = "none";
+    timeOptions.style.display = "none";
     startTimer(time, timerCountElement);
   }
   letter = event.key;
-  console.log(letter.toUpperCase());
   typeLetter(letter);
   playKeySound(letter.toUpperCase());
   testLine();
@@ -125,7 +123,7 @@ function startTimer(duration, display) {
       chart.update();
       resetTest();
       clearInterval(interval);
-      timeSelectorsContainer.style.display = "flex";
+      timeOptions.style.display = "flex";
     }
   }, 1000);
 }

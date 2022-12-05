@@ -1,5 +1,12 @@
 :root {
-  --darkgray: #44475a;
+  --gray: rgb(68, 71, 90);
+  --background:rgb(40, 42, 54);
+  --red : rgb(255, 85, 85);
+  --title: rgb(255, 121, 198);
+}
+
+a{
+  text-decoration: none;
 }
 
 header{
@@ -22,9 +29,6 @@ header{
 header img{
   width: 30px;
   height: 30px;
-  /* padding: 5px;
-  border-radius: 50%;
-  border: 2px solid var(--darkgray); */
   margin: 10px;
 }
 
@@ -44,11 +48,11 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #282a36;
+  background-color: var(--background);
 }
 
 #typebox{
-  margin: 0 3%;
+  margin: 0 4%;
   height: 93px;
   overflow: hidden;
   filter: blur(5px);
@@ -61,18 +65,17 @@ body{
   height: 100%;
   display: grid;
   place-items: center;
-  background-color: #282a3600;
+  background-color: rgba(40, 42, 54, 0.072) ;
   z-index: 4;
 }
 
 .focus p{
-  background-color: #282a361f;
   color: rgb(203, 197, 197);
   margin: 0;
 }
 
 .word{
-  color: #44475a;
+  color: var(--gray);
   font-size: 25px;
   margin: 0 5px;
   display: inline-block;
@@ -83,7 +86,7 @@ body{
 }
 
 .incorrect{
-  color:#ff5555;
+  color:var(--red);
 }
 
 .typebox-container{
@@ -130,7 +133,7 @@ li {
   height: 20px;
   margin: 2px;
   padding: 2px;
-  background-color:#44475a;
+  background-color: var(--gray);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,13 +151,12 @@ ul{
 }
 
 .fa-arrows-rotate{
-  color: #44475a;
+  color: var(--gray);
   padding: 20px;
 }
 
 .displayTimer{
   align-self: flex-start;
-  padding: 0 6%;
   font-size: 15px;
   font-weight: 700;
   color: white;
@@ -166,8 +168,8 @@ ul{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  max-width: 700px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .timeSelectors{
@@ -178,11 +180,12 @@ ul{
   cursor: pointer;
   border-radius: 10px;
   font-weight: 700;
-  color: #44475a;
+  color: var(--gray);
 }
 
 .timeSelector:hover{
-  color: #bd93f9 ;
+  color: white;
+  transition: 0.5s;
 }
 
 .selected {
@@ -190,7 +193,7 @@ ul{
 }
 
 .modalResult{
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -208,19 +211,19 @@ ul{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color:#282a36;
+  background-color:var(--background);
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 10px 0px #44475a;
 }
 
 .modalResult-header{
-  color: #ff79c6;
+  color: var(--title);
   font-size: 20px;
 }
 
 #wpm{
-  color: #ff79c5d7;
+  color: var(--title);
 }
 
 #accuracy{
@@ -244,7 +247,7 @@ ul{
   align-items: center;
   justify-content: center;
   margin: 20px 0;
-  color: #ff79c6;
+  color: var(--title);
 }
 
 select {
@@ -255,7 +258,7 @@ select {
   flex: 1;
   padding: 0 1em;
   color: #fff;
-  background-color: var(--darkgray);
+  background-color: var(--gray);
   background-image: none;
   cursor: pointer;
 }
@@ -291,10 +294,14 @@ select::-ms-expand {
 }
 
 .fa-volume-high{
-  color: var(--darkgray);
+  color: var(--gray);
 }
 
 .fa-volume-xmark{
-  color: #ff5555;
+  color: var(--red);
 }
 
+.timeOptions{
+  display: flex;
+  gap: 10px;
+}
