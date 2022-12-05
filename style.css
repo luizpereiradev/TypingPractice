@@ -12,7 +12,7 @@ body{
 }
 
 #typebox{
-  margin: 0 5%;
+  margin: 0 3%;
   height: 93px;
   overflow: hidden;
   filter: blur(5px);
@@ -43,7 +43,7 @@ body{
 }
 
 .correct{
-  color: #50fa7b;
+  color: white;
 }
 
 .incorrect{
@@ -56,6 +56,7 @@ body{
   justify-content: center;
   position: relative;
   margin-top: 20px;
+  max-width: 700px;
 }
 
 .finalLine{
@@ -79,8 +80,9 @@ body{
 .keyboard {
   display: flex;
   flex-direction: column;
-  margin: 50px auto;
-  visibility: hidden;
+  align-items: center;
+  margin: 20px auto;
+  /* visibility: hidden; */
 }
 
 .row {
@@ -89,38 +91,21 @@ body{
 }
 
 li {
-  width: 40px;
-  height: 40px;
-  margin: 4px;
-  padding: 0 5px;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  padding: 2px;
   background-color:#44475a;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  font-weight: 500;
   color:#f8f8fa;
 }
 
 ul{
   padding: 0;
   margin: 0;
-}
-
-#back, #tab{
-  width: 60px;
-}
-
-#enter{
-  width: 80px;
-}
-
-#caps{
-  width: 70px;
-}
-
-#SHIFT{
-  width: 100px;
 }
 
 .refreshBtn{
@@ -147,6 +132,7 @@ ul{
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  max-width: 700px;
 }
 
 .timeSelectors{
@@ -224,4 +210,20 @@ ul{
   justify-content: center;
   margin: 20px 0;
   color: #ff79c6;
+}
+
+@media screen and (min-width: 550px) {
+  li {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media screen and (max-width: 335px) {
+  .keyboard {
+    display: none;
+  }
+  .modalResult-chart{
+    display: none;
+  }
 }

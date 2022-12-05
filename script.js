@@ -99,7 +99,9 @@ addEventListener("keydown", (event) => {
     startTimer(time, timerCountElement);
   }
   letter = event.key;
+  console.log(letter.toUpperCase());
   typeLetter(letter);
+  playKeySound(letter.toUpperCase());
   testLine();
 });
 
@@ -284,3 +286,9 @@ const chart = new Chart(ctx, {
     }
   }
 });
+
+const playKeySound = (key) => {
+  const keySound = new Audio(`./sounds/${key == ' ' ? 'SPACE': key}.mp3`);
+  keySound.volume = 0.2;
+  keySound.play();
+};
