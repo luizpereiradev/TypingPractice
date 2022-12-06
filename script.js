@@ -307,14 +307,18 @@ const playKeySound = (key) => {
 };
 
 const selectLanguage = (event) => {
-  const language = event.target.value;
-  words = language === "EN" ? wordsEN : wordsPT;
+  const languageElement = document.querySelector(".language");
+  const language = event.target.textContent;
+  console.log(language)
+  languageElement.textContent = language;
+  words = language === 'English' ? wordsEN : wordsPT;
   reloadText();
 };
 
-const languageSelectorContainer = document.querySelector(".select");
-
-languageSelectorContainer.addEventListener("click", selectLanguage);
+const languageOptions = document.querySelectorAll(".option");
+languageOptions.forEach((option) => {
+  option.addEventListener("click", selectLanguage);
+});
 
 const soundIcon = document.querySelector(".volume");
 let soundMuted = false;

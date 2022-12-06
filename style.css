@@ -253,32 +253,42 @@ ul{
   color: var(--title);
 }
 
-select {
-  appearance: none;
-  outline: 0;
-  border: 0;
-  box-shadow: none;
-  flex: 1;
-  padding: 0 1em;
-  color: #fff;
-  background-color: var(--gray);
-  background-image: none;
-  cursor: pointer;
+
+.select {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 20%;
+  background-color: rgb(54, 54, 54);
+  z-index: 998;
+  border-radius: 5px;
+  width: 90px;
+}
+
+.language{
   text-align: center;
 }
 
-select::-ms-expand {
+.select div{
+  padding: 1px 5px;
+  color: white;
+}
+.select:hover{
+  border-radius: 5px 5px 0 0;
+}
+
+.select:hover div{
+  cursor: pointer;
+  display: block;
+  border-bottom: 1px solid white;
+}
+
+.option{
   display: none;
 }
 
-.select {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  height: 25px;
-  border-radius: .25em;
-  overflow: hidden;
-  width: 80px;
+.option:hover{
+  background-color: rgb(40, 42, 54);
 }
 
 @media screen and (min-width: 550px) {
@@ -286,6 +296,7 @@ select::-ms-expand {
     width: 32px;
     height: 32px;
   }
+
 }
 
 @media screen and (max-width: 335px) {
@@ -294,6 +305,15 @@ select::-ms-expand {
   }
   .modalResult-chart{
     display: none;
+  }
+  .select {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 635px) {
+  .select {
+    right: 30%;
   }
 }
 
