@@ -307,9 +307,8 @@ const playKeySound = (key) => {
 };
 
 const selectLanguage = (event) => {
-  if (!event.target.classList.contains("language")) return;
-  const language = event.target.textContent;
-  words = language === "English" ? wordsEN : wordsPT;
+  const language = event.target.value;
+  words = language === "EN" ? wordsEN : wordsPT;
   reloadText();
 };
 

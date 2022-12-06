@@ -49,6 +49,7 @@ body{
   justify-content: center;
   flex-direction: column;
   background-color: var(--background);
+  overflow: hidden;
 }
 
 #typebox{
