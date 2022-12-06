@@ -178,7 +178,7 @@ const resetTest = () => {
   wordElements = document.querySelectorAll(".word");
   letterElements = wordElements[wordTyped].children;
   clearInterval(interval);
-  timeSelectorsContainer.style.display = "flex";
+  timeOptions.style.display = "flex";
   timerCountElement.textContent = time;
   timerCountElement.style.visibility = "hidden";
 };
@@ -200,7 +200,6 @@ const focusElement = document.querySelector(".focus");
 const removeTypeboxBlur = () => {
   typebox.style.filter = "blur(0px)";
   focusElement.style.display = "none";
-  typebox.focus();
 };
 
 const addTypeboxBlur = () => {
@@ -239,6 +238,7 @@ const modalOpen = () => {
 };
 
 const closeModal = () => {
+  timeOptions.style.display = "flex";
   page = "index";
   const modalElement = document.querySelector(".modalResult");
   modalElement.style.visibility = "hidden"
