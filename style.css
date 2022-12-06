@@ -263,6 +263,7 @@ select {
   background-color: var(--gray);
   background-image: none;
   cursor: pointer;
+  text-align: center;
 }
 
 select::-ms-expand {

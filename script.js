@@ -3,7 +3,7 @@ const wpmArray = JSON.parse(localStorage.getItem("wpmArray")) || [];
 const accuracyArray = JSON.parse(localStorage.getItem("accuracyArray")) || [];
 const typeboxContainer = document.querySelector(".typebox-container");
 const timeSelectors = document.querySelectorAll(".timeSelector");
-let words = wordsPT
+let words = wordsPT;
 let page = "index";
 let letterTyped = 0;
 let correctTyped = 0;
@@ -21,6 +21,7 @@ const renderWord = (word) => {
   word.forEach((letter) => {
     const letterElement = document.createElement("span");
     letterElement.textContent = letter;
+    letterElement.classList.add("letter");
     wordElement.appendChild(letterElement);
   });
   typebox.appendChild(wordElement);
@@ -37,7 +38,9 @@ const renderWords = (words) => {
 renderWords(words);
 
 let wordElements = document.querySelectorAll(".word");
-let letterElements = wordElements[wordTyped].children;
+let letterElements = [...wordElements[wordTyped].children].filter((letter) =>
+  letter.classList.contains("letter")
+);
 
 const checkCorrectTyped = (letter, elementLetter, letterElements) => {
   if (letter === elementLetter) {
@@ -55,7 +58,7 @@ const checkTypeBackspace = (letter, letterElements) => {
   if (letter === "Backspace") {
     if (letterTyped === 0) return;
     letterTyped--;
-    letterElements[letterTyped].classList = "";
+    letterElements[letterTyped].classList = "letter";
   }
 };
 
@@ -79,7 +82,9 @@ const typeLetter = (letter) => {
           removeLine1();
         }
         wordTyped++;
-        letterElements = wordElements[wordTyped].children;
+        letterElements = [...wordElements[wordTyped].children].filter(
+          (letter) => letter.classList.contains("letter")
+        );
         letterTyped = 0;
       }
       return;
@@ -165,7 +170,7 @@ const stopKeyEffect = (key) => {
 
 const removeLettersClass = () => {
   document.querySelectorAll(".word span").forEach((letter) => {
-    letter.classList = "";
+    letter.classList = "letter";
   });
 };
 
@@ -176,7 +181,9 @@ const resetTest = () => {
   incorrectTyped = 0;
   wordTyped = 0;
   wordElements = document.querySelectorAll(".word");
-  letterElements = wordElements[wordTyped].children;
+  letterElements = [...wordElements[wordTyped].children].filter((letter) =>
+    letter.classList.contains("letter")
+  );
   clearInterval(interval);
   timeOptions.style.display = "flex";
   timerCountElement.textContent = time;
@@ -234,14 +241,15 @@ const modalOpen = () => {
   const wpmDisplay = document.getElementById("wpm");
   const accuracyDisplay = document.getElementById("accuracy");
   wpmDisplay.textContent = correctTyped / 5 / (time / 60);
-  accuracyDisplay.textContent = (correctTyped / (correctTyped + incorrectTyped)).toFixed(2) * 100 + "%";
+  accuracyDisplay.textContent =
+    (correctTyped / (correctTyped + incorrectTyped)).toFixed(2) * 100 + "%";
 };
 
 const closeModal = () => {
   timeOptions.style.display = "flex";
   page = "index";
   const modalElement = document.querySelector(".modalResult");
-  modalElement.style.visibility = "hidden"
+  modalElement.style.visibility = "hidden";
   removeTypeboxBlur();
 };
 
@@ -252,65 +260,68 @@ const saveWpm = () => {
 };
 
 const saveAccuracy = () => {
-  const accuracy = Number(document.getElementById("accuracy").textContent.replace('%', ''));
+  const accuracy = Number(
+    document.getElementById("accuracy").textContent.replace("%", "")
+  );
   accuracyArray.push(accuracy);
   localStorage.setItem("accuracyArray", JSON.stringify(accuracyArray));
-  chart.data.labels =  wpmArray.map((_, index) => index + 1);
+  chart.data.labels = wpmArray.map((_, index) => index + 1);
 };
 
-const ctx = document.getElementById('myChart');
+const ctx = document.getElementById("myChart");
 
 const chart = new Chart(ctx, {
-  type: 'line',
+  type: "line",
   data: {
     labels: wpmArray.map((_, index) => index + 1),
-    datasets: [{
-      label: 'WPM',
-      data: wpmArray,
-      borderWidth: 3,
-      backgroundColor:  '#ff79c6',
-      pointRadius: 4,
-    }, {
-      label: 'Accuracy',
-      data: accuracyArray,
-      borderWidth: 2,
-      backgroundColor: '#50fa7bd7',
-      pointRadius: 4,
-    }]
+    datasets: [
+      {
+        label: "WPM",
+        data: wpmArray,
+        borderWidth: 3,
+        backgroundColor: "#ff79c6",
+        pointRadius: 4,
+      },
+      {
+        label: "Accuracy",
+        data: accuracyArray,
+        borderWidth: 2,
+        backgroundColor: "#50fa7bd7",
+        pointRadius: 4,
+      },
+    ],
   },
   options: {
     scales: {
       y: {
-        beginAtZero: true
-      }
+        beginAtZero: true,
+      },
     },
-  }
+  },
 });
 
 const playKeySound = (key) => {
-  const keySound = new Audio(`./sounds/${key == ' ' ? 'SPACE': key}.mp3`);
-  soundMuted ? keySound.volume = 0 : keySound.volume = 0.15;
+  const keySound = new Audio(`./sounds/${key == " " ? "SPACE" : key}.mp3`);
+  soundMuted ? (keySound.volume = 0) : (keySound.volume = 0.15);
   keySound.play();
 };
 
 const selectLanguage = (event) => {
-  if(!event.target.classList.contains('language')) return;
+  if (!event.target.classList.contains("language")) return;
   const language = event.target.textContent;
   words = language === "English" ? wordsEN : wordsPT;
   reloadText();
-}
+};
 
 const languageSelectorContainer = document.querySelector(".select");
 
 languageSelectorContainer.addEventListener("click", selectLanguage);
 
-
 const soundIcon = document.querySelector(".volume");
-let soundMuted = false
+let soundMuted = false;
 
 const soundMutetoggle = () => {
   soundIcon.classList.toggle("fa-volume-xmark");
   soundMuted = !soundMuted;
-}
-soundIcon.addEventListener('click', soundMutetoggle);
-
+};
+soundIcon.addEventListener("click", soundMutetoggle);
